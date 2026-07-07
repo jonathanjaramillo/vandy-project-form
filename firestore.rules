@@ -1,0 +1,13 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All client reads/writes are blocked. The Admin SDK used by the Cloud
+    // Functions in functions/index.js bypasses these rules entirely, so
+    // submitIntake can still write and getSubmissions can still read.
+    // The public form and admin page never talk to Firestore directly.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin - Intake Submissions</title>
+<link rel="stylesheet" href="assets/style.css" />
+<meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+<main style="max-width: 1100px;">
+  <h1>Intake Submissions</h1>
+
+  <!--
+    ponytail: This password gate is obscurity + light friction, NOT real security.
+    The filename itself is an unguessable random string, and this check runs
+    entirely in the browser (readable in view-source). The getSubmissions
+    Cloud Function also re-checks the password server-side, but neither of
+    these is meant to stop a determined attacker — the intake data just
+    isn't sensitive enough to justify real auth (Firebase Auth, IAP, etc.).
+    If that ever changes, replace this with Firebase Authentication.
+  -->
+  <div id="gate">
+    <p>Enter the admin password to view submissions.</p>
+    <div class="field">
+      <input type="password" id="password-input" placeholder="Password" />
+    </div>
+    <button id="gate-submit">View submissions</button>
+    <div id="gate-message"></div>
+  </div>
+
+  <div id="dashboard" style="display: none;">
+    <div class="admin-toolbar">
+      <span id="count-label"></span>
+      <button id="download-csv">Download CSV</button>
+    </div>
+    <div class="table-wrap">
+      <table id="submissions-table">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="assets/firebase-config.js"></script>
+<script>
+  // TODO: set this to whatever password you want to gate the admin page with.
+  const ADMIN_PASSWORD = "PLACEHOLDER_ADMIN_PASSWORD";
+
+  let allSubmissions = [];
+
+  const gateEl = document.getElementById("gate");
+  const dashboardEl = document.getElementById("dashboard");
+  const gateMessageEl = document.getElementById("gate-message");
+  const passwordInput = document.getElementById("password-input");
+
+  document.getElementById("gate-submit").addEventListener("click", async () => {
+    const password = passwordInput.value;
+    if (password !== ADMIN_PASSWORD) {
+      gateMessageEl.textContent = "Incorrect password.";
+      return;
+    }
+    gateMessageEl.textContent = "Loading...";
+    try {
+      const res = await fetch(APP_CONFIG.GET_SUBMISSIONS_FUNCTION_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        gateMessageEl.textContent = result.error || "Failed to load submissions.";
+        return;
+      }
+      allSubmissions = result.submissions.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      gateEl.style.display = "none";
+      dashboardEl.style.display = "block";
+      renderTable(allSubmissions);
+    } catch (err) {
+      gateMessageEl.textContent = "Network error — please try again.";
+    }
+  });
+
+  // union of all data keys across every submission, so the table/CSV cover
+  // both faculty and corporate fields without hardcoding either field list
+  function allDataKeys(submissions) {
+    const keys = new Set();
+    submissions.forEach((s) => Object.keys(s.data || {}).forEach((k) => keys.add(k)));
+    return [...keys].sort();
+  }
+
+  function renderTable(submissions) {
+    const dataKeys = allDataKeys(submissions);
+    const headers = ["Submitted", "Form Type", ...dataKeys];
+
+    const thead = document.querySelector("#submissions-table thead");
+    thead.innerHTML =
+      "<tr>" + headers.map((h) => `<th>${escapeHtml(h)}</th>`).join("") + "</tr>";
+
+    const tbody = document.querySelector("#submissions-table tbody");
+    tbody.innerHTML = submissions
+      .map((s) => {
+        const cells = [
+          formatDate(s.createdAt),
+          s.formType || "",
+          ...dataKeys.map((k) => (s.data && s.data[k] != null ? s.data[k] : "")),
+        ];
+        return "<tr>" + cells.map((c) => `<td>${escapeHtml(String(c))}</td>`).join("") + "</tr>";
+      })
+      .join("");
+
+    document.getElementById("count-label").textContent = `${submissions.length} submission(s)`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    return isNaN(d) ? String(iso) : d.toLocaleString();
+  }
+
+  document.getElementById("download-csv").addEventListener("click", () => {
+    const dataKeys = allDataKeys(allSubmissions);
+    const headers = ["createdAt", "formType", ...dataKeys];
+    const rows = allSubmissions.map((s) => [
+      s.createdAt || "",
+      s.formType || "",
+      ...dataKeys.map((k) => (s.data && s.data[k] != null ? s.data[k] : "")),
+    ]);
+
+    const csv = [headers, ...rows]
+      .map((row) => row.map(csvEscape).join(","))
+      .join("\r\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const today = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `intake-responses-${today}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  function csvEscape(value) {
+    const str = String(value ?? "");
+    return /[",\r\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;
+  }
+</script>
+</body>
+</html>

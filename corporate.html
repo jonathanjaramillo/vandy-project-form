@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Corporate Sponsor Intake Form</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<main>
+  <h1>Corporate Sponsor Project Intake Form</h1>
+  <p>This form is for company representatives interested in sponsoring a Senior Seminar student project.</p>
+
+  <form id="intake-form" data-form-type="corporate">
+
+    <h2>1. Sponsor Identification</h2>
+
+    <div class="field">
+      <label class="required" for="contact_name">Primary contact name</label>
+      <input type="text" id="contact_name" name="contact_name" required />
+    </div>
+    <div class="field">
+      <label class="required" for="title_role">Title/role</label>
+      <input type="text" id="title_role" name="title_role" required />
+    </div>
+    <div class="field">
+      <label class="required" for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+    <div class="field">
+      <label class="required" for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required />
+    </div>
+    <div class="field">
+      <label class="required" for="company_name">Company name</label>
+      <input type="text" id="company_name" name="company_name" required />
+    </div>
+    <div class="field">
+      <label class="required" for="industry">Industry</label>
+      <input type="text" id="industry" name="industry" required />
+    </div>
+    <div class="field">
+      <label class="required" for="company_size">Company size</label>
+      <input type="text" id="company_size" name="company_size" required />
+    </div>
+    <div class="field">
+      <label class="required" for="website">Website</label>
+      <input type="text" id="website" name="website" required />
+    </div>
+    <div class="field">
+      <label class="required">Is this your company's first time sponsoring a Vanderbilt student project?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="first_time_sponsor" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="first_time_sponsor" value="No" /> No</label>
+      </div>
+    </div>
+
+    <h2>2. Project Overview</h2>
+
+    <div class="field">
+      <label class="required" for="project_title">Project title</label>
+      <input type="text" id="project_title" name="project_title" required />
+    </div>
+    <div class="field">
+      <label class="required" for="project_description">Project description <span class="hint">(problem, context, motivation)</span></label>
+      <textarea id="project_description" name="project_description" required></textarea>
+    </div>
+    <div class="field">
+      <label class="required" for="project_goals">Specific goals/objectives</label>
+      <textarea id="project_goals" name="project_goals" required></textarea>
+    </div>
+    <div class="field">
+      <label class="required" for="deliverables">Expected deliverables <span class="hint">(report, prototype, dataset, codebase, app, etc.)</span></label>
+      <textarea id="deliverables" name="deliverables" required></textarea>
+    </div>
+
+    <h2>3. Student Requirements</h2>
+
+    <div class="field">
+      <label class="required" for="num_students">Number of students needed</label>
+      <input type="number" id="num_students" name="num_students" min="1" required />
+    </div>
+    <div class="field">
+      <label class="required" for="preferred_majors">Preferred majors/disciplines</label>
+      <input type="text" id="preferred_majors" name="preferred_majors" required />
+    </div>
+    <div class="field">
+      <label class="required" for="student_level">Undergrad, grad, or either</label>
+      <select id="student_level" name="student_level" required>
+        <option value="" disabled selected>Select one</option>
+        <option value="Undergrad">Undergrad</option>
+        <option value="Grad">Grad</option>
+        <option value="Either">Either</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="required" for="required_skills">Required or preferred skills/prerequisite knowledge</label>
+      <textarea id="required_skills" name="required_skills" required></textarea>
+    </div>
+    <div class="field">
+      <label for="team_composition">Team composition preferences, if any</label>
+      <textarea id="team_composition" name="team_composition"></textarea>
+    </div>
+
+    <h2>4. Sponsor Involvement &amp; Logistics</h2>
+
+    <div class="field">
+      <label class="required" for="mentor_contact">Name/role of the dedicated mentor or point of contact for students</label>
+      <input type="text" id="mentor_contact" name="mentor_contact" required />
+    </div>
+    <div class="field">
+      <label class="required" for="work_location">On-site, remote, or hybrid</label>
+      <select id="work_location" name="work_location" required>
+        <option value="" disabled selected>Select one</option>
+        <option value="On-site">On-site</option>
+        <option value="Remote">Remote</option>
+        <option value="Hybrid">Hybrid</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="equipment_provided">Equipment, software, datasets, or facility access provided</label>
+      <textarea id="equipment_provided" name="equipment_provided"></textarea>
+    </div>
+    <div class="field">
+      <label for="budget_allocated">Any budget allocated for materials/tools</label>
+      <input type="text" id="budget_allocated" name="budget_allocated" />
+    </div>
+
+    <h2>5. Intellectual Property &amp; Legal</h2>
+
+    <div class="field">
+      <label class="required" for="ip_ownership">Who will own IP resulting from the project?</label>
+      <select id="ip_ownership" name="ip_ownership" required data-toggles="ip-joint-wrap" data-show-when="Joint-shared">
+        <option value="" disabled selected>Select one</option>
+        <option value="Sponsor">Sponsor</option>
+        <option value="Vanderbilt">Vanderbilt</option>
+        <option value="Students">Students</option>
+        <option value="Joint-shared">Joint-shared</option>
+      </select>
+      <div class="conditional" id="ip-joint-wrap">
+        <label for="ip_joint_explain">If joint, please explain</label>
+        <textarea id="ip_joint_explain" name="ip_joint_explain"></textarea>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Is a formal IP or sponsorship agreement required before work begins?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="ip_agreement_required" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="ip_agreement_required" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Will students need to sign an NDA?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="nda_required" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="nda_required" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Are there export control considerations?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="export_control" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="export_control" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Can results be published academically or presented publicly?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="can_publish" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="can_publish" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Can students list this project on a resume/portfolio?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="can_list_on_resume" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="can_list_on_resume" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Can Vanderbilt and/or sponsor use each other's name/logo in promotional materials?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="logo_use_allowed" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="logo_use_allowed" value="No" /> No</label>
+      </div>
+    </div>
+
+    <h2>6. Confidentiality &amp; Data Handling</h2>
+
+    <div class="field">
+      <label class="required">Will students access proprietary, confidential, or sensitive data?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="access_sensitive_data" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="access_sensitive_data" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="compliance_requirements">Any compliance requirements <span class="hint">(HIPAA, FERPA, export-controlled, etc.)</span></label>
+      <input type="text" id="compliance_requirements" name="compliance_requirements" />
+    </div>
+    <div class="field">
+      <label for="data_retention">Data retention/destruction expectations after the project ends</label>
+      <textarea id="data_retention" name="data_retention"></textarea>
+    </div>
+
+    <h2>7. Evaluation &amp; Outcomes</h2>
+
+    <div class="field">
+      <label class="required" for="success_measurement">How will project success be measured?</label>
+      <textarea id="success_measurement" name="success_measurement" required></textarea>
+    </div>
+    <div class="field">
+      <label class="required">Is a final presentation to the sponsor required?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="final_presentation_required" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="final_presentation_required" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required">Will the sponsor evaluate student performance?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="sponsor_evaluates" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="sponsor_evaluates" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="follow_on_work">Possibility of follow-on work, internships, or hiring?</label>
+      <input type="text" id="follow_on_work" name="follow_on_work" />
+    </div>
+
+    <h2>8. Administrative</h2>
+
+    <div class="field">
+      <label class="required" for="donation_interest">Is your organization interested in making a sponsorship donation to support the program?</label>
+      <select id="donation_interest" name="donation_interest" required>
+        <option value="" disabled selected>Select one</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        <option value="Tell me more">Tell me more</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="required">Agreement to program terms and conditions</label>
+      <div class="radio-group">
+        <label><input type="radio" name="agrees_to_terms" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="agrees_to_terms" value="No" /> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="required" for="signature_approval">Signature/approval <span class="hint">(note if a separate legal or procurement contact needs to co-sign)</span></label>
+      <input type="text" id="signature_approval" name="signature_approval" required />
+    </div>
+
+    <div class="g-recaptcha" id="recaptcha-container"></div>
+
+    <button type="submit">Submit</button>
+    <div id="form-message"></div>
+  </form>
+</main>
+
+<script src="assets/firebase-config.js"></script>
+<script>
+  window.onRecaptchaLoad = function () {
+    grecaptcha.render("recaptcha-container", { sitekey: APP_CONFIG.RECAPTCHA_SITE_KEY });
+  };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+<script src="assets/form.js"></script>
+</body>
+</html>
