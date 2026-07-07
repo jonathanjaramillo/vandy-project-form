@@ -1,16 +1,16 @@
-// Fill these in after you deploy your Firebase project. See SETUP.md.
+// Fill these in after you deploy. See SETUP.md.
 //
 // The frontend never talks to Firestore directly — it only calls these two
-// Cloud Function HTTPS endpoints. You get the URLs after running
-// `firebase deploy --only functions` (they're printed in the deploy output,
-// and are also visible in the Firebase console under Functions).
+// Vercel serverless function endpoints (api/submitIntake.js, api/getSubmissions.js).
+// You get the URLs after running `vercel --prod` (printed in the deploy output,
+// and visible in the Vercel dashboard).
 const APP_CONFIG = {
-  // TODO: paste the deployed URL for the "submitIntake" function
-  // e.g. "https://submitintake-xxxxxxxxxx-uc.a.run.app"
+  // TODO: paste your Vercel deployment's submitIntake URL
+  // e.g. "https://vandy-project-form.vercel.app/api/submitIntake"
   SUBMIT_FUNCTION_URL: "PLACEHOLDER_SUBMIT_FUNCTION_URL",
 
-  // TODO: paste the deployed URL for the "getSubmissions" function
-  // e.g. "https://getsubmissions-xxxxxxxxxx-uc.a.run.app"
+  // TODO: paste your Vercel deployment's getSubmissions URL
+  // e.g. "https://vandy-project-form.vercel.app/api/getSubmissions"
   GET_SUBMISSIONS_FUNCTION_URL: "PLACEHOLDER_GET_SUBMISSIONS_FUNCTION_URL",
 
   // TODO: paste your reCAPTCHA v2 (checkbox) SITE key from

@@ -1,0 +1,7 @@
+{
+  "name": "vandy-project-form",
+  "private": true,
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}
