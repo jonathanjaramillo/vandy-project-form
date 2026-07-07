@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "vandy-project-intake"
+    "default": "vandy-project-intake",
+    "vandyform": "vandy-project-intake"
   },
   "targets": {},
   "etags": {}

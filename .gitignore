@@ -7,3 +7,5 @@ firebase-debug.log
 .vercel/
 *serviceAccount*.json
 *service-account*.json
+.vercel
+.env*
