@@ -51,6 +51,7 @@
     new FormData(form).forEach((value, key) => {
       data[key] = value;
     });
+    delete data["g-recaptcha-response"]; // the widget's own hidden field, not a form answer
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";

@@ -29,6 +29,7 @@ module.exports = async (req, res) => {
     res.status(400).json({ success: false, error: "Missing form data." });
     return;
   }
+  delete data["g-recaptcha-response"]; // strip even if a caller bypasses the client-side form.js
 
   const missing = REQUIRED_FIELDS_BY_FORM[formType].filter(
     (field) => !data[field] || String(data[field]).trim() === ""
