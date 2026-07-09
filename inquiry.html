@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vanderbilt Senior Capstone Project Proposal Form</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<main>
+  <h1>Vanderbilt Senior Capstone Project Proposal Form</h1>
+  <p>Use this form for an initial project inquiry — a faster first step before the full sponsor intake forms.</p>
+
+  <form id="intake-form" data-form-type="inquiry">
+
+    <div class="field">
+      <label class="required" for="contact_name">Name of principal point of contact</label>
+      <input type="text" id="contact_name" name="contact_name" required />
+    </div>
+    <div class="field">
+      <label class="required" for="organization_name">Name of company, organization, or lab</label>
+      <input type="text" id="organization_name" name="organization_name" required />
+    </div>
+    <div class="field">
+      <label class="required" for="project_description">Project description <span class="hint">(technical contributions and resources needed)</span></label>
+      <textarea id="project_description" name="project_description" required></textarea>
+    </div>
+
+    <div class="g-recaptcha" id="recaptcha-container"></div>
+
+    <button type="submit">Submit</button>
+    <div id="form-message"></div>
+  </form>
+</main>
+
+<script src="assets/firebase-config.js"></script>
+<script>
+  window.onRecaptchaLoad = function () {
+    grecaptcha.render("recaptcha-container", { sitekey: APP_CONFIG.RECAPTCHA_SITE_KEY });
+  };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+<script src="assets/form.js"></script>
+</body>
+</html>
