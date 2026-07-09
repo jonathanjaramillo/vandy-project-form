@@ -85,7 +85,7 @@ const REQUIRED_FIELDS_BY_FORM = {
     "agrees_to_terms",
     "signature_approval",
   ],
-  inquiry: ["contact_name", "organization_name", "project_description"],
+  inquiry: ["contact_name", "email", "organization_name", "project_description"],
 };
 
 async function verifyRecaptcha(token, secret) {

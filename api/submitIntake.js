@@ -40,6 +40,10 @@ module.exports = async (req, res) => {
       .json({ success: false, error: `Missing required fields: ${missing.join(", ")}` });
     return;
   }
+  if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    res.status(400).json({ success: false, error: "Invalid email address." });
+    return;
+  }
 
   try {
     const isHuman = await verifyRecaptcha(recaptchaToken, process.env.RECAPTCHA_SECRET);
